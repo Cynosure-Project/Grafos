@@ -14,7 +14,6 @@ public class Validar {
             if (!s.matches("^[A-Za-z]+$")) 
             {
                 s = "";
-
                 JOptionPane.showMessageDialog(null, "Por favor, ingresa un dato válido", "Validar", 0);
             }
         }
