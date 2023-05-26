@@ -8,7 +8,7 @@ package grafos;
  *
  * @author Mariana M
  */
-public class Grafos {
+public class Principal {
 
     /**
      * @param args the command line arguments
