@@ -7,25 +7,26 @@ import utilidades.Validar;
 
 
 public class Vista {
-    Validar v= new Validar();
-    Grafo G= new Grafo();
+    Validar v = new Validar();
+    Grafo G = new Grafo();
     
-    public void VistaIngreso()
-    {
+    public void VistaIngreso() {
         String Sl, Sv = v.ValidarString("Ingrese vértices a agregar al grafo (Separados mediante comas)");
         int i, la [], ve[];
         JOptionPane.showMessageDialog(null, Sv, "", 0);
         Sl = v.ValidarString(""" 
                                 Ingrese las aristas del grafo y su respectivo peso (Separados mediante comas)
                                 Por ejemplo: (1,2,4) (1,3,5)
-                                    """);
-                                                   
+                                    """);                       
         JOptionPane.showMessageDialog(null, Sl, "", 0);
-        la= CadenaAvector(Sl.trim());
-        ve=CadenaAvector(Sv.trim());
+        
+        la = CadenaAvector(Sl);
+        ve = CadenaAvector(Sv);
+        
         IngresoValido(ve,la);
         G.CrearMA(ve, la);     
     }
+    
     public void VistaMostrar()
     {
         
@@ -62,14 +63,12 @@ public class Vista {
     }
 
     private int[] CadenaAvector(String s) {
-        
-        char []m=s.toCharArray();
         int[] ve = new int[s.length()];
-        for (int i = 0; i < s.length(); i++)
-        {
-            ve[i] = s.charAt(i);
-
+        
+        for (int i = 0; i < s.length(); i++) {
+            ve[i] = s.charAt(i) - '0';
         }
+        
         return ve;
     }
 
