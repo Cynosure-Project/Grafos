@@ -10,13 +10,15 @@ public class Validar {
         {
             s = JOptionPane.showInputDialog(t);
             
-            s = s.toUpperCase();
-            if (!s.matches("^[A-Za-z]+$")) 
+            
+            if (!s.matches("^[0-9,(){} ]+$")) 
             {
                 s = "";
                 JOptionPane.showMessageDialog(null, "Por favor, ingresa un dato válido", "Validar", 0);
             }
         }
+        
+        s = s.replaceAll ("[,() {}]",  "");
         
         return s;
     }

@@ -1,10 +1,7 @@
 
 package utilidades;
 
-/**
- *
- * @author Mariana M
- */
+
 public class Nodo {
     //Atributos
     private int Dato;
