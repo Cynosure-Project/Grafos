@@ -21,8 +21,8 @@ public class Vista {
                                     """);
                                                    
         JOptionPane.showMessageDialog(null, Sl, "", 0);
-        la= CadenaAvector(Sl.trim());
-        ve=CadenaAvector(Sv.trim());
+        la= CadenaAvector(Sl);
+        ve=CadenaAvector(Sv);
         IngresoValido(ve,la);
         G.CrearMA(ve, la);     
     }
@@ -63,11 +63,11 @@ public class Vista {
 
     private int[] CadenaAvector(String s) {
         
-        char []m=s.toCharArray();
+        
         int[] ve = new int[s.length()];
         for (int i = 0; i < s.length(); i++)
         {
-            ve[i] = s.charAt(i);
+            ve[i] = s.charAt(i)-'0';
 
         }
         return ve;
