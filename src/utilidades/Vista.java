@@ -1,11 +1,9 @@
 package utilidades;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import logica.Grafo;
-import utilidades.Validar;
 
 public class Vista {
 
@@ -35,10 +33,12 @@ public class Vista {
         G.CrearMA(ve, la);
     }
 
-    public void VistaMostrar() {
+    public void VistaMostrar() 
+    {
 
-    }
-
+    }  
+    
+  // ----------------------------------------------------------------------------------------------------------------------------------
     private boolean IngresoValido(int[] ve, int[] la) {
         boolean b = false;
         int cont = 0;
