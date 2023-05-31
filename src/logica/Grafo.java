@@ -123,15 +123,15 @@ public class Grafo {
         return MI;
     }*/
     
-    public void CrearMI() {
-        ArrayList<Integer> lista = numeroAristas();
+    public void CrearMI(int[] ve) {
+        ArrayList<Integer> lista = Aristas();
         int f = MA.length;
         int c = lista.size()+1;
         MI = new int[f][c];
-        int x = 0;
+        int x = 2;
         
         for(int i=1; i<MA.length; i++) {
-            MI[i][0] = i;
+            MI[i][0] = ve[i];
             
             for(int j=1; j<MA[0].length; j++) {
                 if(j < MI[0].length) {
@@ -147,48 +147,12 @@ public class Grafo {
         }
     }
     
-    /*private ArrayList<Integer> numeroAristas(int[][] MA) {
+    private ArrayList<Integer> Aristas() {
         ArrayList<Integer> lista = new ArrayList<>();
         
         for(int[] fila : MA) {
             for(int num : fila) {
                 if(lista.indexOf(num) == -1) {
-                    lista.add(num);
-                }
-            }
-        }
-        
-        Collections.sort(lista);
-        
-        return lista;
-    }*/
-    
-    private ArrayList<Integer> numeroAristas() {
-        ArrayList<Integer> lista = new ArrayList<>();
-        
-        for (int i=1; i<MA.length; i++) {
-            for(int j=1; j<MA[0].length; j++) {
-                int num = MA[i][j];
-                
-                if(lista.indexOf(num)==-1 && num!=0) {
-                    lista.add(num);
-                }
-            }
-        }
-        
-        Collections.sort(lista);
-        
-        return lista;
-    }
-    
-    private ArrayList<Integer> numeroVertices() {
-        ArrayList<Integer> lista = new ArrayList<>();
-        
-        for (int i=0; i<MA.length; i++) {
-            for(int j=1; j<MA[0].length; j++) {
-                int num = MA[i][j];
-                
-                if(lista.indexOf(num)==-1 && num!=0) {
                     lista.add(num);
                 }
             }
@@ -238,6 +202,7 @@ public class Grafo {
             s += "\n";
         }
     }
+    
     
     
 }

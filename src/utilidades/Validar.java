@@ -41,41 +41,52 @@ public class Validar {
         return i;
     }
     
-    public static boolean ValidarAristas(int[] ve, int[] la) {
+    public static boolean ValidarTripleta(int[] ve, int[] la) {
+        boolean b = false;
         int cont = 0;
         List<Integer> veL = Arrays.stream(ve).boxed().collect(Collectors.toList());
-        
-        if (la.length % 3 == 0) {
-            for (int i = 0; i < la.length; i++) {
+        if (la.length % 3 == 0)
+        {
+            for (int i = 0; i < la.length; i++)
+            {
                 cont++;
 
-                if (cont % 3 != 0) {
-                    if (!veL.contains(la[i])) {
+                if (cont % 3 != 0)
+                {
+                    if (veL.contains(la[i]))
+                    {
+                        b = true;
+                    } else
+                    {
                         JOptionPane.showMessageDialog(null, "Ingresaste aristas conectadas a vértices que no existen en el grafo", "Ingresa de nuevo", 0);
-                        
                         return false;
                     }
                 }
+
             }
         } else
+        {
             JOptionPane.showMessageDialog(null, "Faltaron datos al ingresar las aristas", "Ingresa de nuevo", 0);
-   
-        return true;
+        }
+        return b;
     }
     
-    public static String ValidarVertices(int[] ve) {
-        ArrayList<Integer> veL = new ArrayList<>();
+    public static String ValidarVertices(String v) {
+        ArrayList<Character> veL = new ArrayList<>();
         
-        for(int i=0; i<ve.length; i++) {
-            if(!veL.contains(ve[i])) {
-                veL.add(ve[i]);
-            }
+        for(int i=0; i<v.length(); i++) {
+            char c = v.charAt(i);
+            
+            if(!veL.contains(c))
+                veL.add(c);
         }
         
         String s = veL.toString();
-        s = s.replaceAll ("[,\\[\\]]",  "");
+        s = s.replaceAll ("[,\\[\\] ]",  "");
         
         return s;
     }
+    
+    
      
 }

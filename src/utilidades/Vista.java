@@ -1,7 +1,9 @@
 
 package utilidades;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
@@ -28,7 +30,7 @@ public class Vista {
                                     """);
             JOptionPane.showMessageDialog(null, Sl, "", 1);
             la = CadenaAvector(Sl);
-        } while(!Validar.ValidarAristas(ve, la));
+        } while(!Validar.ValidarTripleta(ve, la));;
     }
     
     public void VistaMostrarMatrizAdyacencia() {
@@ -44,7 +46,7 @@ public class Vista {
     }
     
     public void VistaCrearMatrizIncidencia() {
-        G.CrearMI();
+        G.CrearMI(ve);
     }
     
     public void VistaCrearVectorAdyacencia() {
@@ -58,12 +60,12 @@ public class Vista {
   // ----------------------------------------------------------------------------------------------------------------------------------
 
     private int[] CadenaAvector(String s) {
-        int[] ve = new int[s.length()];
+        int[] v = new int[s.length()];
         
         for (int i = 0; i < s.length(); i++)
-            ve[i] = s.charAt(i) - '0';
+            v[i] = s.charAt(i) - '0';
         
-        return ve;
+        return v;
     }
     
     
