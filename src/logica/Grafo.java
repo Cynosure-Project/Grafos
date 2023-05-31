@@ -6,14 +6,20 @@ import javax.swing.JOptionPane;
 
 public class Grafo {
     
-      
+    private int [][]MA;
+
+    public int[][] getMA() {
+        return MA;
+    }
+
+    public void setMA(int[][] MA) {
+        this.MA = MA;
+    }
     
-    
-    public void CrearMA(int V[], int L[]) 
+    public int [][] CrearMA(int V[], int L[]) 
     {
-        int k, MA[][] = Vertices(V);
-        
-       
+        int k;
+        MA= Vertices(V);
         for(int i=0 ; i<L.length;i+=3)
         {
             for(int j=1; j<MA.length; j++)
@@ -30,7 +36,7 @@ public class Grafo {
                 }
             }
         }
-        Mostrar(MA);
+        return MA;
         
     }
     
@@ -50,14 +56,14 @@ public class Grafo {
     
     public int[][] Vertices(int V[])
     {
-        int M[][]= new int [V.length+1][V.length+1];
-        for(int i=1; i< M.length;i++)
+        this.MA=new int[V.length+1][V.length+1];
+        for(int i=1; i< MA.length;i++)
         {
-            M[0][i]=V[i-1]; 
-             M[i][0]=V[i-1];
+            MA[0][i]=V[i-1]; 
+             MA[i][0]=V[i-1];
         }
        
         
-        return M;
+        return MA;
     }
 }

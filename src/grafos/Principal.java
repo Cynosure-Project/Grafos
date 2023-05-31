@@ -9,7 +9,7 @@ public class Principal {
     {
         Vista v= new Vista();
         v.VistaIngreso();
-        
+        v.VistaMostrar();
     }
     
 }

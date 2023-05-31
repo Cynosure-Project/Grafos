@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import logica.Grafo;
+import utilidades.GraficoGrafo;
 
 public class Vista {
 
@@ -13,13 +14,13 @@ public class Vista {
     public void VistaIngreso() {
         String Sl, Sv = v.ValidarString("Ingrese vértices a agregar al grafo (Separados mediante comas)");
         int i, la[], ve[];
-        JOptionPane.showMessageDialog(null, Sv, "", 0);
+        //JOptionPane.showMessageDialog(null, Sv, "", 0);
         Sl = v.ValidarString(""" 
                                 Ingrese las aristas del grafo y su respectivo peso (Separados mediante comas)
                                 Por ejemplo: (1,2,4) (1,3,5)
                                     """);
 
-        JOptionPane.showMessageDialog(null, Sl, "", 0);
+        //JOptionPane.showMessageDialog(null, Sl, "", 0);
         la = CadenaAvector(Sl);
         ve = CadenaAvector(Sv);
         while (!IngresoValido(ve, la))
@@ -29,14 +30,18 @@ public class Vista {
                                 Ingrese las aristas del grafo y su respectivo peso (Separados mediante comas)
                                 Por ejemplo: (1,2,4) (1,3,5)
                                    """);
+            la= CadenaAvector(Sl);
         }
-        G.CrearMA(ve, la);
+        G.Mostrar(G.CrearMA(ve, la));
+        
     }
 
     public void VistaMostrar() 
     {
-
-    }  
+    G.Mostrar(G.getMA());
+    GraficoGrafo grafica = new GraficoGrafo(G.getMA());
+    grafica.pintarGrafo(G.getMA());
+}
     
   // ----------------------------------------------------------------------------------------------------------------------------------
     private boolean IngresoValido(int[] ve, int[] la) {
