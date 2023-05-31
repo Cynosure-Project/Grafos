@@ -11,9 +11,6 @@ public class Menu {
     public static void MenuPrincipal() {
         int opcion;
         v.VistaIngreso();
-        v.VistaCrearMatrizAdyacencia();
-        v.VistaCrearMatrizIncidencia();
-        v.VistaCrearVectorAdyacencia();
         
         do 
         {
@@ -23,6 +20,7 @@ public class Menu {
                                 1. Mostrar matriz adyacencia
                                 2. Mostrar matriz incidencia
                                 3. Mostrar vector adyacencia
+                                4. Ingresar nuevo grafo
                                 0. Salir 
                                     """);
 
@@ -38,6 +36,10 @@ public class Menu {
                         
                     case 3:
                         v.VistaMostrarVectorAdyacencia();
+                        break;
+                        
+                    case 4:
+                        v.VistaIngreso();
                         break;
                        
                     case 0:

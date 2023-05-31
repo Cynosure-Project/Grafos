@@ -21,7 +21,7 @@ public class Vista {
         
         Sv = Validar.ValidarString("Ingrese vértices a agregar al grafo (Separados mediante comas)");
         JOptionPane.showMessageDialog(null, Sv, "", 1);
-        ve = CadenaAvector(Sv);
+        ve = CadenaAvector(Validar.ValidarVertices(Sv));
         
         do {
             Sl = Validar.ValidarString(""" 
@@ -30,7 +30,11 @@ public class Vista {
                                     """);
             JOptionPane.showMessageDialog(null, Sl, "", 1);
             la = CadenaAvector(Sl);
-        } while(!Validar.ValidarTripleta(ve, la));;
+        } while(!Validar.ValidarTripleta(ve, la));
+        
+        VistaCrearMatrizAdyacencia();
+        VistaCrearMatrizIncidencia();
+        VistaCrearVectorAdyacencia();
     }
     
     public void VistaMostrarMatrizAdyacencia() {
@@ -46,7 +50,7 @@ public class Vista {
     }
     
     public void VistaCrearMatrizIncidencia() {
-        G.CrearMI(ve);
+        G.CrearMI(ve, la);
     }
     
     public void VistaCrearVectorAdyacencia() {
@@ -54,7 +58,7 @@ public class Vista {
     }
     
     public void VistaMostrarVectorAdyacencia() {
-        G.MostrarVectorAdyacencia();
+        G.MostrarVectorAdyacencia(ve);
     }
     
   // ----------------------------------------------------------------------------------------------------------------------------------

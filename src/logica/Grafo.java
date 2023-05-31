@@ -123,15 +123,15 @@ public class Grafo {
         return MI;
     }*/
     
-    public void CrearMI(int[] ve) {
-        ArrayList<Integer> lista = Aristas();
+    public void CrearMI(int[] ve, int[] la) {
+        ArrayList<Integer> lista = Aristas(la);
         int f = MA.length;
         int c = lista.size()+1;
         MI = new int[f][c];
         int x = 2;
         
         for(int i=1; i<MA.length; i++) {
-            MI[i][0] = ve[i];
+            MI[i][0] = ve[i-1];
             
             for(int j=1; j<MA[0].length; j++) {
                 if(j < MI[0].length) {
@@ -147,15 +147,12 @@ public class Grafo {
         }
     }
     
-    private ArrayList<Integer> Aristas() {
+    private ArrayList<Integer> Aristas(int[] la) {
         ArrayList<Integer> lista = new ArrayList<>();
         
-        for(int[] fila : MA) {
-            for(int num : fila) {
-                if(lista.indexOf(num) == -1) {
-                    lista.add(num);
-                }
-            }
+        for(int i=2; i<la.length; i+=3) {
+            if(lista.indexOf(la[i]) == -1)
+                lista.add(la[i]);
         }
         
         Collections.sort(lista);
@@ -166,10 +163,10 @@ public class Grafo {
     public void CrearVectorAdyacencia() {
         VA = new Nodo[MA.length];
         
-        for(int i=0; i<MA.length; i++) {
-            for(int j=0; j<MA[0].length; j++) {
+        for(int i=1; i<MA.length; i++) {
+            for(int j=1; j<MA[0].length; j++) {
                 if(MA[i][j] != 0) {
-                    Nodo x = new Nodo(j);
+                    Nodo x = new Nodo(MA[0][j]);
                     
                     if(VA[i] == null)
                         VA[i] = x;
@@ -186,21 +183,22 @@ public class Grafo {
         }
     }
     
-    public void MostrarVectorAdyacencia() {
+    public void MostrarVectorAdyacencia(int[] ve) {
         String s = "";
-        int c = 0;
         
-        for(int i=0; i<VA.length; i++) {
+        for(int i=1; i<VA.length; i++) {
             Nodo p = VA[i];
-            c++;
-            s += "|" + c + "|";
+            s += "|| " + ve[i-1] + " ||";
             
             while(p != null) {
-                s += "->" + p.getDato();
+                s += " -> " + "[ " + p.getDato() + " ]";
+                p = p.getLiga();
             }
             
             s += "\n";
         }
+        
+        JOptionPane.showMessageDialog(null, s);
     }
     
     
