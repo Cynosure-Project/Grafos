@@ -201,6 +201,22 @@ public class Grafo {
         JOptionPane.showMessageDialog(null, s);
     }
     
+    public void DFS(int iv /*posicion de vertice en vector*/, int[] Visitado, StringBuilder s) {
+        Nodo p;
+        int w;
+        Visitado[iv] = 1;
+        
+        p = VA[iv];
+        
+        while(p != null) {
+            int w = p.getDato();
+            
+            if()
+        }
+        
+    }
+    
+    public void
     
     
 }
