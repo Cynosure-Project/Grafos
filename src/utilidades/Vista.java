@@ -58,13 +58,14 @@ public class Vista {
     }
     
     public void VistaMostrarVectorAdyacencia() {
-        G.MostrarVectorAdyacencia(ve);
+        G.MostrarVectorAdyacencia();
     }
     
     public void VistaDFS() {
         int[] Visitado = new int[ve.length];
         StringBuilder s = new StringBuilder("");
         
+        System.out.println("Ingrese vertice des");
         G.DFS(2, Visitado, s, ve);
         
         System.out.println(s);

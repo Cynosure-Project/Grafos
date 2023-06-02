@@ -167,12 +167,14 @@ public class Grafo {
         for(int i=1; i<MA.length; i++) {
             for(int j=1; j<MA[0].length; j++) {
                 if(MA[i][j] != 0) {
+                    Nodo q = new Nodo(MA[i][0]);
                     Nodo x = new Nodo(MA[0][j]);
                     
-                    if(VA[i] == null)
-                        VA[i] = x;
-                    else {
-                        Nodo p = VA[i];
+                    if(VA[i] == null) {
+                        VA[i] = q;
+                        VA[i].setLiga(x);
+                    } else {
+                        Nodo p = VA[i].getLiga();
                         
                         while(p.getLiga() != null)
                             p = p.getLiga();
@@ -184,12 +186,12 @@ public class Grafo {
         }
     }
     
-    public void MostrarVectorAdyacencia(int[] ve) {
+    public void MostrarVectorAdyacencia() {
         String s = "";
         
         for(int i=1; i<VA.length; i++) {
-            Nodo p = VA[i];
-            s += "|| " + ve[i-1] + " ||";
+            Nodo p = VA[i].getLiga();
+            s += "|| " + VA[i].getDato() + " ||";
             
             while(p != null) {
                 s += " -> " + "[ " + p.getDato() + " ]";
@@ -207,12 +209,12 @@ public class Grafo {
         int w;
         Visitado[iv] = 1;
         
-        s.append(" |" + ve[iv] + "| ");
         p = VA[iv+1];
+        s.append(" |" + p.getDato() + "| ");
         
         while(p != null) {
             w = p.getDato();
-            int i = IndiceVertice(w, ve);
+            int i = indiceVertice(w, ve);
             
             if(Visitado[i] == 0)
                 DFS(i, Visitado, s, ve);
@@ -221,8 +223,8 @@ public class Grafo {
         }
     }
     
-    public int IndiceVertice(int v, int[] ve) {
-        List<Integer> lista = vectorAlista(ve);
+    public int indiceVertice(int v, int[] ve) {
+        ArrayList<Integer> lista = vectorAlista(ve);
         
         for(int num : lista) {
             if(num == v)
@@ -241,6 +243,7 @@ public class Grafo {
         
         return lista;
     }
+    
    
     
 }
