@@ -2,7 +2,10 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import utilidades.Nodo;
 
@@ -135,14 +138,12 @@ public class Grafo {
             
             for(int j=1; j<MA[0].length; j++) {
                 if(j < MI[0].length) {
-                    if(MI[0][j]==0 && j<=lista.size()) {
+                    if(MI[0][j]==0 && j<=lista.size())
                         MI[0][j] = lista.get(j-1);
-                    }
                 }
                         
-                if(MA[i][j] != 0) {
+                if(MA[i][j] != 0)
                     MI[i][lista.indexOf(MA[i][j])+1] = 1;
-                }
             }
         }
     }
@@ -201,22 +202,45 @@ public class Grafo {
         JOptionPane.showMessageDialog(null, s);
     }
     
-    /*public void DFS(int iv /*posicion de vertice en vector, int[] Visitado, StringBuilder s) {
+    public void DFS(int iv /*posicion de vertice en vector*/, int[] Visitado, StringBuilder s, int[] ve) {
         Nodo p;
         int w;
         Visitado[iv] = 1;
         
-        p = VA[iv];
+        s.append(" |" + ve[iv] + "| ");
+        p = VA[iv+1];
         
         while(p != null) {
-            int w = p.getDato();
+            w = p.getDato();
+            int i = IndiceVertice(w, ve);
             
-            if()
+            if(Visitado[i] == 0)
+                DFS(i, Visitado, s, ve);
+            
+            p = p.getLiga();
         }
-        
     }
     
-    public void*/
+    public int IndiceVertice(int v, int[] ve) {
+        List<Integer> lista = vectorAlista(ve);
+        
+        for(int num : lista) {
+            if(num == v)
+                return lista.indexOf(num);
+        }
+        
+        return -1;
+    }
     
+    private ArrayList<Integer> vectorAlista(int[] ve) {
+        ArrayList<Integer> lista = new ArrayList<>();
+        
+        for(int i=0; i<ve.length; i++) {
+            lista.add(ve[i]);
+        }
+        
+        return lista;
+    }
+   
     
 }

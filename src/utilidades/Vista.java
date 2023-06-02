@@ -61,6 +61,16 @@ public class Vista {
         G.MostrarVectorAdyacencia(ve);
     }
     
+    public void VistaDFS() {
+        int[] Visitado = new int[ve.length];
+        StringBuilder s = new StringBuilder("");
+        
+        G.DFS(2, Visitado, s, ve);
+        
+        System.out.println(s);
+    }
+    
+    
   // ----------------------------------------------------------------------------------------------------------------------------------
 
     private int[] CadenaAvector(String s) {
