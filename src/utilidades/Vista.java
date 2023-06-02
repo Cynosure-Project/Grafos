@@ -42,15 +42,49 @@ public class Vista {
 
     public void VistaVectorAdyacencia() {
         G.MostrarVectorAdyacencia(ve);
-    }
-    public void VistaBfs()
-    {
-        int dato =Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
-        dato= G.ObtenerIndiceVertice(dato);
-        JOptionPane.showMessageDialog(null, G.BFS(dato), "Recorrido BFS", 3);
         
     }
-
+     public void VistaDFS() {
+        int[] Visitado = new int[ve.length];
+        StringBuilder s = new StringBuilder("");
+        
+        int dato = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        if(G.IndiceVertice(dato, ve)!=-1)
+        {
+            dato=G.IndiceVertice(dato, ve);
+            G.DFS(dato, Visitado, s, ve);
+            JOptionPane.showMessageDialog(null,   s, "Recorrido DFS", 3);
+        }else
+        {
+            JOptionPane.showMessageDialog(null, "Has ingresado un vértice que no está en el grafo", "Recorrido BFS", 0);
+        }
+        
+        
+        
+    }
+    
+    public void VistaDM()
+    {
+        int O = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        int D =Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        //String s=G.DistanciaMinima(O, D);
+        //JOptionPane.showMessageDialog(null,   s, "Distancia", 3);
+    }
+    
+    
+//   public void VistaBfs() {
+//    int dato = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
+//
+//    if (G.ObtenerIndiceVertice(dato) != -1) 
+//    {
+//        dato = G.ObtenerIndiceVertice(dato);
+//        String recorrido = G.BFS(dato);
+//        JOptionPane.showMessageDialog(null,   recorrido, "Recorrido BFS", 3);
+//    } else 
+//    {
+//        JOptionPane.showMessageDialog(null, "Has ingresado un vértice que no está en el grafo", "Recorrido BFS", 0);
+//    }
+//}
     // ----------------------------------------------------------------------------------------------------------------------------------
     private int[] CadenaAvector(String s) {
         int[] v = new int[s.length()];

@@ -52,6 +52,7 @@ public class Menu {
                         Menu.MenuRecorridos();
                         break;
                     case 7:
+                            v.VistaDM();
                         break;
                        
                     case 0:
@@ -82,11 +83,11 @@ public class Menu {
             switch(opcion)
             {
                     case 1:
-                        
+                        v.VistaDFS();
                         break;
                         
                     case 2:
-                        v.VistaBfs();
+                       // v.VistaBfs();
                         
                         break;
                         
