@@ -1,4 +1,5 @@
 package utilidades;
+import javax.swing.JOptionPane;
 import logica.Grafo;
 
 public class Vista {
@@ -41,6 +42,13 @@ public class Vista {
 
     public void VistaVectorAdyacencia() {
         G.MostrarVectorAdyacencia(ve);
+    }
+    public void VistaBfs()
+    {
+        int dato =Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        dato= G.ObtenerIndiceVertice(dato);
+        JOptionPane.showMessageDialog(null, G.BFS(dato), "Recorrido BFS", 3);
+        
     }
 
     // ----------------------------------------------------------------------------------------------------------------------------------

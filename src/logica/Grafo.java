@@ -1,8 +1,9 @@
 
 package logica;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.JOptionPane;
 import utilidades.Nodo;
 
@@ -186,9 +187,53 @@ public class Grafo {
         JOptionPane.showMessageDialog(null, s);
     }
 
-    public void BFS()
-    {
+    public String BFS(int dato) {
+    int[] visitado = new int[VA.length];
+    
+    Queue<Integer> cola = new LinkedList<>();
+    StringBuilder sb = new StringBuilder();
+    
+    visitado[dato] = 1;
+     sb.append(VA[dato].getDato()).append(" ");
+    cola.add(dato);
+    
+    while (!cola.isEmpty()) {
+        int actual = cola.poll();
+        //sb.append(VA[actual-1].getDato()).append(" ");
         
+        Nodo p = VA[actual];
+        while (p != null) {
+            int adyacente = ObtenerIndiceVertice(p.getDato());
+            if (visitado[adyacente]==0) {
+                visitado[adyacente] = 1;
+                cola.add(adyacente);
+                sb.append(sb).append(VA[adyacente].getDato()).append(" ");
+            }
+            
+            p = p.getLiga();
+        }
     }
+    
+    return sb.toString();
+}
+public int ObtenerIndiceVertice(int dato) {
+        int i = 1;
+        while (i < VA.length && VA[i].getDato() != dato)
+        {
+            i++;
+        }
+        if (i == VA.length)
+        {
+            i = 0;
+        }
+        return i;
+    }
+
+
+
+
+
+
+
     
 }

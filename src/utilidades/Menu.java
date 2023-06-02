@@ -23,6 +23,8 @@ public class Menu {
                                 3. Matriz de Incidencia
                                 4. Lista de adyacencia
                                 5. Crear nuevo grafo
+                                6. Recorridos
+                                7. Distancia Mínima
                                 0. Salir 
                                     """);
 
@@ -84,6 +86,7 @@ public class Menu {
                         break;
                         
                     case 2:
+                        v.VistaBfs();
                         
                         break;
                         
