@@ -64,12 +64,17 @@ public class Vista {
     public void VistaDFS() {
         int[] Visitado = new int[ve.length];
         StringBuilder s = new StringBuilder("");
+        int dato = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
         
-        System.out.println("Ingrese vertice des");
-        G.DFS(2, Visitado, s, ve);
-        
-        System.out.println(s);
+        if(G.indiceVertice(dato, ve)!=-1) {
+            dato = G.indiceVertice(dato, ve);
+            
+            G.DFS(dato, Visitado, s, ve);
+            JOptionPane.showMessageDialog(null,   s, "Recorrido DFS", 3);
+        } else
+            JOptionPane.showMessageDialog(null, "Has ingresado un vértice que no está en el grafo", "Recorrido BFS", 0);  
     }
+    
     
     
   // ----------------------------------------------------------------------------------------------------------------------------------
