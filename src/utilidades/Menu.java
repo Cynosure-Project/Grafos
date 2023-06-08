@@ -87,7 +87,7 @@ public class Menu {
                         break;
                         
                     case 2:
-                       // v.VistaBfs();
+                       v.VistaBfs();
                         
                         break;
                         

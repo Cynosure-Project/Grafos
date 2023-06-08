@@ -66,7 +66,7 @@ public class Grafo {
     
     public void CrearMA(int V[], int L[]) {
         int k;
-        MA = Vertices(V);
+        MA = Vertices(V); 
         
         for(int i=0 ; i<L.length; i+=3) {
             for(int j=1; j<MA.length; j++) {
@@ -196,7 +196,7 @@ public class Grafo {
         Visitado[iv] = 1;
         
         p = VA[iv+1];
-        s.append(" |" + p.getDato() + "| ");
+        s.append(" |").append(p.getDato()).append("|--> ");
         
         while(p != null) {
             w = p.getDato();
@@ -231,116 +231,34 @@ public class Grafo {
         
         return -1;
     }
-//
-//  public String BFS(int dato) {
-//    int[] visitado = new int[VA.length];
-//
-//    Queue<Integer> cola = new LinkedList<>();
-//    StringBuilder sb = new StringBuilder();
-//
-//    visitado[dato] = 1;
-//    sb.append(VA[dato].getDato()).append(" ");
-//    cola.add(dato);
-//
-//   while (!cola.isEmpty()) {
-//    int actual = cola.poll();
-//
-//    Nodo p = VA[actual];
-//    while (p != null) {
-//        int adyacente = IndiceVertice(dato, visitado);
-//        if (visitado[adyacente] == 0) {
-//            visitado[adyacente] = 1;
-//            cola.add(adyacente);
-//            sb.append(VA[adyacente].getDato()).append(" ");
-//        }
-//        p = p.getLiga();
-//    }
-//}
-//
-//
-//    return sb.toString();
-//}
 
-//  public String DistanciaMinima(int origen, int destino) {
-//    int[] distancia = new int[VA.length];
-//    int[] previo = new int[VA.length];
-//    boolean[] visitado = new boolean[VA.length];
-//
-//    for (int i = 0; i < VA.length; i++) {
-//        distancia[i] = Integer.MAX_VALUE;
-//        previo[i] = -1;
-//        visitado[i] = false;
-//    }
-//
-//    distancia[origen] = 0;
-//
-//    for (int i = 1; i < VA.length - 1; i++) {
-//        int u = obtenerVerticeMinimo(distancia, visitado);
-//        visitado[u] = true;
-//
-//        for (Nodo ad = VA[u]; ad != null; ad = ad.getLiga()) {
-//            int v = ObtenerIndiceVertice(ad.getDato());
-//            int peso = MA[u][v];
-//
-//            if (!visitado[v] && peso != 0 && distancia[u] != Integer.MAX_VALUE &&
-//                distancia[u] + peso < distancia[v]) {
-//                distancia[v] = distancia[u] + peso;
-//                previo[v] = u;
-//            }
-//        }
-//    }
-//
-//    return obtenerRecorrido(origen, destino, previo);
-//}
-//
-//private String obtenerRecorrido(int origen, int destino, int[] previo) {
-//    if (previo[destino] == -1) {
-//        return "No existe un camino desde " + VA[origen].getDato() +
-//               " hasta " + VA[destino].getDato();
-//    }
-//
-//    StringBuilder recorrido = new StringBuilder();
-//    recorrido.append("El recorrido de distancia mínima desde ");
-//    recorrido.append(VA[origen].getDato());
-//    recorrido.append(" hasta ");
-//    recorrido.append(VA[destino].getDato());
-//    recorrido.append(" es:\n");
-//
-//    LinkedList<Integer> camino = new LinkedList<>();
-//    int actual = destino;
-//    camino.addFirst(actual);
-//
-//    while (previo[actual] != -1) {
-//        actual = previo[actual];
-//        camino.addFirst(actual);
-//    }
-//
-//    for (int i = 1; i < camino.size(); i++) {
-//        recorrido.append(VA[camino.get(i)].getDato());
-//
-//        if (i != camino.size() - 1) {
-//            recorrido.append(" -> ");
-//        }
-//    }
-//
-//    return recorrido.toString();
-//}
-//
-//  
-//
-//private int obtenerVerticeMinimo(int[] distancia, boolean[] visitado) {
-//    int minimo = Integer.MAX_VALUE;
-//    int indiceMinimo = -1;
-//
-//    for (int i = 1; i < VA.length; i++) {
-//        if (!visitado[i] && distancia[i] <= minimo) {
-//            minimo = distancia[i];
-//            indiceMinimo = i;
-//        }
-//    }
-//
-//    return indiceMinimo;
-//}
+  public void BFS(int dato, int []ve) 
+  {
+    int[] visitado = new int[VA.length];
+    String s="";
+    Queue<Integer> cola = new LinkedList<>();
+    
 
+    visitado[dato] = 1;
+    s = s+ "| "+VA[dato+1].getDato()+" |--> ";
+    cola.add(dato);
+
+   while (!cola.isEmpty()) {
+    int actual = cola.poll();
+
+    Nodo p = VA[actual+1];
+    while (p != null) {
+        int adyacente = IndiceVertice(p.getDato(), ve);
+        if (visitado[adyacente] == 0) 
+        {                                           
+            visitado[adyacente] = 1;
+            cola.add(adyacente);
+            s=s+"| "+VA[adyacente+1].getDato()+ " |--> ";
+        }
+        p = p.getLiga();
+    }
+   }
+   JOptionPane.showMessageDialog(null,s,"BFS",3);
+  }
  
 }

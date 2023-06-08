@@ -41,7 +41,7 @@ public class Vista {
     }
 
     public void VistaVectorAdyacencia() {
-        G.MostrarVectorAdyacencia(ve);
+        G.MostrarVectorAdyacencia();
         
     }
      public void VistaDFS() {
@@ -72,19 +72,19 @@ public class Vista {
     }
     
     
-//   public void VistaBfs() {
-//    int dato = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
-//
-//    if (G.ObtenerIndiceVertice(dato) != -1) 
-//    {
-//        dato = G.ObtenerIndiceVertice(dato);
-//        String recorrido = G.BFS(dato);
-//        JOptionPane.showMessageDialog(null,   recorrido, "Recorrido BFS", 3);
-//    } else 
-//    {
-//        JOptionPane.showMessageDialog(null, "Has ingresado un vértice que no está en el grafo", "Recorrido BFS", 0);
-//    }
-//}
+    public void VistaBfs() {
+        int dato = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
+
+        if (G.IndiceVertice(dato, ve) != -1)
+        {
+            dato = G.IndiceVertice(dato, ve);
+            G.BFS(dato, ve);
+
+        } else
+        {
+            JOptionPane.showMessageDialog(null, "Has ingresado un vértice que no está en el grafo", "Recorrido BFS", 0);
+        }
+    }
     // ----------------------------------------------------------------------------------------------------------------------------------
     private int[] CadenaAvector(String s) {
         int[] v = new int[s.length()];
