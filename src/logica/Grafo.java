@@ -83,19 +83,30 @@ public class Grafo {
         }
     }
     
-    public void MostrarMatriz(int[][] M) {
+public void MostrarMatriz(int[][] M, boolean b) {
         int i, j;
-        String s = " ";
-        
-        for (i = 0; i < M.length; i++) {
+        String s = ""; 
+
+        for (i = 0; i < M.length; i++)
+        {
             for (j = 0; j < M[0].length; j++)
-                s += "[ " + String.format("%4d", M[i][j]) + " ]";
-            
+            {
+                if (j == 0 || (b && i == 0)) 
+                {
+                    char letra = (char) M[i][j];
+                    s += "[ " + String.format("%4s", Character.toString(letra)) + " ]"; 
+                } else
+                {
+                    s += "[ " + String.format("%4d", M[i][j]) + " ]"; 
+                }
+            }
+
             s += "\n";
         }
-        
-        JOptionPane.showMessageDialog(null, s, "Matriz de adyacencia", 3);
+
+        JOptionPane.showMessageDialog(null, s, "Matriz", 3); 
     }
+
     
     private int[][] Vertices(int V[]) {
         int M[][] = new int [V.length+1][V.length+1];
@@ -176,10 +187,10 @@ public class Grafo {
         
         for(int i=1; i<VA.length; i++) {
             Nodo p = VA[i].getLiga();
-            s += "|| " + VA[i].getDato() + " ||";
+            s += "|| " + (char)VA[i].getDato() + " ||";
             
             while(p != null) {
-                s += " -> " + "[ " + p.getDato() + " ]";
+                s += " -> " + "[ " + (char)p.getDato() + " ]";
                 p = p.getLiga();
             }
             
@@ -196,7 +207,7 @@ public class Grafo {
         Visitado[iv] = 1;
         
         p = VA[iv+1];
-        s.append(" |").append(p.getDato()).append("|--> ");
+        s.append(" |").append((char)p.getDato()).append("|--> ");
         
         while(p != null) {
             w = p.getDato();
@@ -240,7 +251,7 @@ public class Grafo {
     
 
     visitado[dato] = 1;
-    s = s+ "| "+VA[dato+1].getDato()+" |--> ";
+    s = s+ "| "+(char)VA[dato+1].getDato()+" |--> ";
     cola.add(dato);
 
    while (!cola.isEmpty()) {
@@ -253,7 +264,7 @@ public class Grafo {
         {                                           
             visitado[adyacente] = 1;
             cola.add(adyacente);
-            s=s+"| "+VA[adyacente+1].getDato()+ " |--> ";
+            s=s+"| "+(char)VA[adyacente+1].getDato()+ " |--> ";
         }
         p = p.getLiga();
     }

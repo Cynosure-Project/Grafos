@@ -9,17 +9,17 @@ public class Vista {
     int[] la;
 
     public void VistaIngreso() {
-        int i;
         String Sv, Sl;
-        Sv = Validar.ValidarString("Ingrese vértices a agregar al grafo (Separados mediante comas)");
-        ve = CadenaAvector(Validar.ValidarVertices(Sv));
+        Sv = Validar.ValidarV("Ingrese vértices a agregar al grafo (Separados mediante comas)");
+        
+        ve = CadenaAvector(Validar.ValidarVertices(Sv),false);
         do
         {
             Sl = Validar.ValidarString(""" 
                                 Ingrese las aristas del grafo y su respectivo peso (Separados mediante comas)
                                 Por ejemplo: (1,2,4) (1,3,5)
                                     """);
-            la = CadenaAvector(Sl);
+            la = CadenaAvector(Sl,true);
         } while (!Validar.IngresoValido(ve, la));
         G.CrearMA(ve, la);
         G.CrearMI(ve, la);
@@ -33,11 +33,11 @@ public class Vista {
     }
 
     public void VistaMatrizAdyacencia() {
-        G.MostrarMatriz(G.getMA());
+        G.MostrarMatriz(G.getMA(),true);
     }
 
     public void VistaMatrizIncidencia() {
-        G.MostrarMatriz(G.getMI());
+        G.MostrarMatriz(G.getMI(), false);
     }
 
     public void VistaVectorAdyacencia() {
@@ -45,10 +45,11 @@ public class Vista {
         
     }
      public void VistaDFS() {
-        int[] Visitado = new int[ve.length];
+        int [] Visitado = new int[ve.length];
         StringBuilder s = new StringBuilder("");
-        
-        int dato = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        char letra= Validar.ValidarChar("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        int dato=(int)letra;
+       
         if(G.IndiceVertice(dato, ve)!=-1)
         {
             dato=G.IndiceVertice(dato, ve);
@@ -73,8 +74,10 @@ public class Vista {
     
     
     public void VistaBfs() {
-        int dato = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
-
+        int dato; 
+        char letra= Validar.ValidarChar("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        dato=(int)letra;
+        
         if (G.IndiceVertice(dato, ve) != -1)
         {
             dato = G.IndiceVertice(dato, ve);
@@ -86,15 +89,25 @@ public class Vista {
         }
     }
     // ----------------------------------------------------------------------------------------------------------------------------------
-    private int[] CadenaAvector(String s) {
+    private int[] CadenaAvector(String s, boolean b) {
         int[] v = new int[s.length()];
-
+        int cont=0;
         for (int i = 0; i < s.length(); i++)
         {
-            v[i] = s.charAt(i) - '0';
+            cont++;
+            if(cont%3==0&&b)
+            {
+                v[i] = s.charAt(i)-'0';
+            }else
+            {
+                v[i] = s.charAt(i);
+            }
+            
         }
 
         return v;
     }
+    
+
 
 }

@@ -13,9 +13,8 @@ public class Validar {
         while (s.equals(""))
         {
             s = JOptionPane.showInputDialog(t);
-            
-            
-            if (!s.matches("^[0-9,(){} ]+$")) 
+            s = s.toUpperCase();           
+            if (!s.matches("^[A-Za-z 0-9,(){} ]+$")) 
             {
                 s = "";
                 JOptionPane.showMessageDialog(null, "Por favor, ingresa un dato válido", "Validar", 0);
@@ -26,9 +25,8 @@ public class Validar {
         
         return s;
     }
-
     
-    public char ValidarChar(String t){
+      public static char ValidarChar(String t){
         String s = "";
         boolean b = false;
 
@@ -36,6 +34,7 @@ public class Validar {
         while (!b)
         {
             s = JOptionPane.showInputDialog(t); 
+            
             s=s.toUpperCase();
             if(s.matches("[A-Za-z]{1}"))
             {
@@ -51,6 +50,26 @@ public class Validar {
         
         return '\0';
     }
+   public static String ValidarV(String t){
+        String s = "";
+        
+        while (s.equals(""))
+        {
+            s = JOptionPane.showInputDialog(t);
+            s = s.toUpperCase();           
+            if (!s.matches("^[A-Za-z,(){} ]+$")) 
+            {
+                s = "";
+                JOptionPane.showMessageDialog(null, "Por favor, ingresa un dato válido", "Validar", 0);
+            }
+        }
+        
+        s = s.replaceAll ("[,() {}]",  "");
+        
+        return s;
+    }
+ 
+  
 
     public static int ValidarInt(String t){
         int i = 0;
@@ -71,6 +90,7 @@ public class Validar {
         
         return i;
     }
+    
     
      public static boolean IngresoValido(int[] ve, int[] la) {
         boolean b = false;

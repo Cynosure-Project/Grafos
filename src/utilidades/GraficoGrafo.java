@@ -37,7 +37,8 @@ public class GraficoGrafo extends JFrame {
             g.fillOval( x-25, y-25, 50, 50);
             g.setColor(Color.BLACK);
             g.setFont(font);
-            g.drawString(String.valueOf(matrizAdyacencia[i][0]), x - 5, y + 5);
+            char letra= (char)matrizAdyacencia[i][0];
+            g.drawString(String.valueOf(letra), x - 5, y + 5);
             if (matrizAdyacencia[i][i] != 0) {
                 g.setColor(Color.RED);
                 g.drawArc(x - 20, y - 20, 40, 40, 45, 280); // Dibujar un arco como bucle
