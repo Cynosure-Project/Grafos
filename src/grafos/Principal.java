@@ -1,14 +1,14 @@
 
 package grafos;
-import utilidades.Vista;
+import utilidades.Menu;
+
 
 public class Principal {
 
     
     public static void main(String[] args) 
     {
-        Vista v= new Vista();
-        v.VistaIngreso();
+       Menu.MenuPrincipal();
         
     }
     
