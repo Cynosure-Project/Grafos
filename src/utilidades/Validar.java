@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 public class Validar {
     
-    public static String ValidarString(String t) {
+    /*public static String ValidarString(String t) {
         String s = "";
         
         while (s.equals("")) {
@@ -16,6 +16,23 @@ public class Validar {
             if (!s.matches("^[0-9,(){}\\[\\] ]+$")) {
                 s = "";
                 
+                JOptionPane.showMessageDialog(null, "Por favor, ingresa un dato válido", "Validar", 0);
+            }
+        }
+        
+        s = s.replaceAll ("[,() {}]",  "");
+        
+        return s;
+    }*/
+    
+    public static String ValidarString(String t){
+        String s = "";
+        
+        while (s.equals("")) {
+            s = (JOptionPane.showInputDialog(t)).toUpperCase();   
+            
+            if (!s.matches("^[A-Za-z,(){} ]+$"))  {
+                s = "";
                 JOptionPane.showMessageDialog(null, "Por favor, ingresa un dato válido", "Validar", 0);
             }
         }
@@ -41,33 +58,45 @@ public class Validar {
         return i;
     }
     
+    public static char ValidarChar(String t){
+        String s = "";
+        boolean b = false;
+
+        while (!b) {
+            s = (JOptionPane.showInputDialog(t)).toUpperCase(); 
+            
+            if(s.matches("[A-Za-z]{1}")) {
+                b = true;
+                return s.charAt(0);
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Por favor, ingresa un dato válido", "Validación", 0);
+        }
+
+        return '\0';
+    }
+    
     public static boolean ValidarTripleta(int[] ve, int[] la) {
         boolean b = false;
         int cont = 0;
         List<Integer> veL = Arrays.stream(ve).boxed().collect(Collectors.toList());
-        if (la.length % 3 == 0)
-        {
-            for (int i = 0; i < la.length; i++)
-            {
+        
+        if (la.length % 3 == 0) {
+            for (int i = 0; i < la.length; i++) {
                 cont++;
 
-                if (cont % 3 != 0)
-                {
-                    if (veL.contains(la[i]))
-                    {
+                if (cont % 3 != 0) {
+                    if (veL.contains(la[i])) {
                         b = true;
-                    } else
-                    {
+                    } else {
                         JOptionPane.showMessageDialog(null, "Ingresaste aristas conectadas a vértices que no existen en el grafo", "Ingresa de nuevo", 0);
                         return false;
                     }
                 }
-
             }
         } else
-        {
             JOptionPane.showMessageDialog(null, "Faltaron datos al ingresar las aristas", "Ingresa de nuevo", 0);
-        }
+
         return b;
     }
     
@@ -81,8 +110,7 @@ public class Validar {
                 veL.add(c);
         }
         
-        String s = veL.toString();
-        s = s.replaceAll ("[,\\[\\] ]",  "");
+        String s = (veL.toString()).replaceAll ("[,\\[\\] ]",  "");
         
         return s;
     }

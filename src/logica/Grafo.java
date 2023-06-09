@@ -4,7 +4,9 @@ package logica;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import utilidades.Nodo;
@@ -67,7 +69,7 @@ public class Grafo {
     
     public void CrearMA(int V[], int L[]) {
         int k;
-        MA = VerticesAmatriz(V);
+        MA = verticesAmatriz(V);
         
         for(int i=0 ; i<L.length; i+=3) {
             for(int j=1; j<MA.length; j++) {
@@ -84,21 +86,32 @@ public class Grafo {
         }
     }
     
-    public void MostrarMatriz(int[][] M) {
+    public void MostrarMatriz(int[][] M, boolean b) {
         int i, j;
-        String s = " ";
-        
-        for (i = 0; i < M.length; i++) {
+        String s = ""; 
+
+        for (i = 0; i < M.length; i++)
+        {
             for (j = 0; j < M[0].length; j++)
-                s += "[ " + String.format("%4d", M[i][j]) + " ]";
-            
+            {
+                if (j == 0 || (b && i == 0)) 
+                {
+                    char letra = (char) M[i][j];
+                    s += "[ " + String.format("%4s", Character.toString(letra)) + " ]"; 
+                } else
+                    s += "[ " + String.format("%4d", M[i][j]) + " ]"; 
+            }
+
             s += "\n";
         }
         
-        JOptionPane.showMessageDialog(null, s, "Matriz de adyacencia", 3);
+        if(b)      
+            JOptionPane.showMessageDialog(null, s, "Matriz Adyacencia", 3);
+        else
+            JOptionPane.showMessageDialog(null, s, "Matriz Incidencia", 3);  
     }
     
-    private int[][] VerticesAmatriz(int V[]) {
+    private int[][] verticesAmatriz(int V[]) {
         int M[][] = new int [V.length+1][V.length+1];
         
         for(int i=1; i<M.length; i++) {
@@ -125,13 +138,12 @@ public class Grafo {
         
         return MI;
     }*/
-    
+
     public void CrearMI(int[] ve, int[] la) {
         ArrayList<Integer> lista = Aristas(la);
         int f = MA.length;
         int c = lista.size()+1;
         MI = new int[f][c];
-        int x = 2;
         
         for(int i=1; i<MA.length; i++) {
             MI[i][0] = ve[i-1];
@@ -191,12 +203,16 @@ public class Grafo {
         
         for(int i=1; i<VA.length; i++) {
             Nodo p = VA[i].getLiga();
-            s += "|| " + VA[i].getDato() + " ||";
             
-            while(p != null) {
-                s += " -> " + "[ " + p.getDato() + " ]";
-                p = p.getLiga();
-            }
+            if(p != null) {
+                s += "|| " + VA[i].getDato() + " ||";
+            
+                do {
+                    s += " -> " + "[ " + p.getDato() + " ]";
+                    p = p.getLiga();
+                } while(p != null);
+            } else
+                s += "|| " + " ||"; 
             
             s += "\n";
         }
@@ -210,7 +226,7 @@ public class Grafo {
         Visitado[iv] = 1;
         
         p = VA[iv+1];
-        s.append(" |" + p.getDato() + "| ");
+        s.append(" |").append((char)p.getDato()).append("|--> ");
         
         while(p != null) {
             w = p.getDato();
@@ -237,11 +253,81 @@ public class Grafo {
     private ArrayList<Integer> vectorAlista(int[] ve) {
         ArrayList<Integer> lista = new ArrayList<>();
         
-        for(int i=0; i<ve.length; i++) {
+        for(int i=0; i<ve.length; i++)
             lista.add(ve[i]);
-        }
         
         return lista;
+    }
+    
+    public void BFS(int dato, int []ve) {
+        int[] visitado = new int[VA.length];
+        String s = "";
+        Queue<Integer> cola = new LinkedList<>();
+        visitado[dato] = 1;
+        s += "| " + (char)VA[dato+1].getDato() + " |--> ";
+        cola.add(dato);
+
+        while (!cola.isEmpty()) {
+            int actual = cola.poll();
+
+            Nodo p = VA[actual+1];
+
+            while (p != null) {
+                int adyacente = indiceVertice(p.getDato(), ve);
+
+                if (visitado[adyacente] == 0) {                                           
+                    visitado[adyacente] = 1;
+                    cola.add(adyacente);
+                    s=s+"| "+(char)VA[adyacente+1].getDato()+ " |--> ";
+                }
+
+                p = p.getLiga();
+            }
+        }
+        
+        JOptionPane.showMessageDialog(null,s,"BFS",3);
+    }
+    
+    public int[] DistanciaMinima(int origen) {
+        int numVertices = VA.length-1;
+        int[] distancias = new int[numVertices];
+        boolean[] visitados = new boolean[numVertices];
+
+        for (int i = 0; i < numVertices; i++) {
+            distancias[i] = Integer.MAX_VALUE;
+            visitados[i] = false;
+        }
+
+        distancias[origen] = 0;
+
+        for (int i = 0; i < numVertices - 1; i++) {
+            int verticeMinDistancia = obtenerMinimaDistancia(distancias, visitados);
+            visitados[verticeMinDistancia] = true;
+
+            for (int j = 0; j < numVertices; j++) {
+                if (!visitados[j] && MA[verticeMinDistancia][j] != 0 &&
+                        distancias[verticeMinDistancia] != Integer.MAX_VALUE &&
+                        distancias[verticeMinDistancia] + MA[verticeMinDistancia][j] < distancias[j])
+                    distancias[j] = distancias[verticeMinDistancia] + MA[verticeMinDistancia][j];
+            }
+        }
+
+        return distancias;
+    }
+
+    private int obtenerMinimaDistancia(int[] distancias, boolean[] visitados) {
+        int numVertices = VA.length-1;
+        int minimaDistancia = Integer.MAX_VALUE;
+        int indiceMinimaDistancia = -1;
+
+        for (int i = 0; i < numVertices; i++) {
+            if (!visitados[i] && distancias[i] <= minimaDistancia) {
+                minimaDistancia = distancias[i];
+                indiceMinimaDistancia = i;
+            }
+        }
+
+        return indiceMinimaDistancia;
     }
     
    

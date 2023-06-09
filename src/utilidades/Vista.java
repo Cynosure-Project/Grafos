@@ -16,75 +16,106 @@ public class Vista {
     int[] la;
 
     public void VistaIngreso() {
-        int i;
         String Sv, Sl;
         
         Sv = Validar.ValidarString("Ingrese vértices a agregar al grafo (Separados mediante comas)");
-        JOptionPane.showMessageDialog(null, Sv, "", 1);
-        ve = CadenaAvector(Validar.ValidarVertices(Sv));
+
+        ve = cadenaAvector(Validar.ValidarVertices(Sv), false);
         
         do {
             Sl = Validar.ValidarString(""" 
                                 Ingrese las aristas del grafo y su respectivo peso (Separados mediante comas)
                                 Por ejemplo: (1,2,4) (1,3,5)
                                     """);
-            JOptionPane.showMessageDialog(null, Sl, "", 1);
-            la = CadenaAvector(Sl);
+            la = cadenaAvector(Sl, true);
         } while(!Validar.ValidarTripleta(ve, la));
         
-        VistaCrearMatrizAdyacencia();
-        VistaCrearMatrizIncidencia();
-        VistaCrearVectorAdyacencia();
-    }
-    
-    public void VistaMostrarMatrizAdyacencia() {
-        G.MostrarMatriz(G.getMA());
-    } 
-    
-    public void VistaMostrarMatrizIncidencia() {
-        G.MostrarMatriz(G.getMI());
-    } 
-    
-    public void VistaCrearMatrizAdyacencia() {
         G.CrearMA(ve, la);
-    }
-    
-    public void VistaCrearMatrizIncidencia() {
         G.CrearMI(ve, la);
-    }
-    
-    public void VistaCrearVectorAdyacencia() {
         G.CrearVectorAdyacencia();
     }
     
-    public void VistaMostrarVectorAdyacencia() {
+    public void VistaMostrarGrafo() {
+        GraficoGrafo grafica = new GraficoGrafo(G.getMA());
+        grafica.pintarGrafo(G.getMA());
+    }
+    
+    public void VistaMostrarMA() {
+        G.MostrarMatriz(G.getMA(), true);
+    } 
+    
+    public void VistaMostrarMI() {
+        G.MostrarMatriz(G.getMI(), false);
+    }
+
+    public void VistaMostrarVA() {
         G.MostrarVectorAdyacencia();
     }
     
+    public void VistaCrearMA() {
+        G.CrearMA(ve, la);
+    }
+    
+    public void VistaCrearMI() {
+        G.CrearMI(ve, la);
+    }
+    
+    public void VistaCrearVA() {
+        G.CrearVectorAdyacencia();
+    }
+    
     public void VistaDFS() {
-        int[] Visitado = new int[ve.length];
+        int [] Visitado = new int[ve.length];
         StringBuilder s = new StringBuilder("");
-        int dato = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
-        
-        if(G.indiceVertice(dato, ve)!=-1) {
+        char letra = Validar.ValidarChar("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        int dato = (int)letra;
+       
+        if(G.indiceVertice(dato, ve) != -1) {
             dato = G.indiceVertice(dato, ve);
             
             G.DFS(dato, Visitado, s, ve);
             JOptionPane.showMessageDialog(null,   s, "Recorrido DFS", 3);
+        }else
+            JOptionPane.showMessageDialog(null, "Has ingresado un vértice que no está en el grafo", "Recorrido BFS", 0);
+    }
+    
+    public void VistaBFS() {
+        int dato; 
+        char letra = Validar.ValidarChar("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        dato = (int)letra;
+        
+        if (G.indiceVertice(dato, ve) != -1) {
+            dato = G.indiceVertice(dato, ve);
+            
+            G.BFS(dato, ve);
         } else
-            JOptionPane.showMessageDialog(null, "Has ingresado un vértice que no está en el grafo", "Recorrido BFS", 0);  
+            JOptionPane.showMessageDialog(null, "Has ingresado un vértice que no está en el grafo", "Recorrido BFS", 0);
+    }
+    
+    public void VistaDistanciaMinima() {
+        char letra = (char)Validar.ValidarChar("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        int dato = G.indiceVertice((int)letra, ve);
+       
+        G.DistanciaMinima(dato);
     }
     
     
     
   // ----------------------------------------------------------------------------------------------------------------------------------
 
-    private int[] CadenaAvector(String s) {
+    private int[] cadenaAvector(String s, boolean b) {
         int[] v = new int[s.length()];
+        int cont = 0;
         
-        for (int i = 0; i < s.length(); i++)
-            v[i] = s.charAt(i) - '0';
-        
+        for (int i = 0; i < s.length(); i++) {
+            cont++;
+            
+            if(cont%3==0 && b)
+                v[i] = s.charAt(i)-'0';
+            else
+                v[i] = s.charAt(i); 
+        }
+
         return v;
     }
     
