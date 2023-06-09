@@ -17,7 +17,7 @@ public class Vista {
         {
             Sl = Validar.ValidarString(""" 
                                 Ingrese las aristas del grafo y su respectivo peso (Separados mediante comas)
-                                Por ejemplo: (1,2,4) (1,3,5)
+                                Por ejemplo: (A,B,4) (A,C,5)
                                     """);
             la = CadenaAvector(Sl,true);
         } while (!Validar.IngresoValido(ve, la));

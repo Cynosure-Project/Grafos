@@ -188,13 +188,22 @@ public void MostrarMatriz(int[][] M, boolean b) {
         String s = "";
         
         for(int i=1; i<VA.length; i++) {
-            Nodo p = VA[i].getLiga();
-            s += "|| " + (char)VA[i].getDato() + " ||";
-            
-            while(p != null) {
-                s += " -> " + "[ " + (char)p.getDato() + " ]";
-                p = p.getLiga();
+            Nodo p = VA[i];
+            if(p!=null)
+            {
+                p = VA[i].getLiga();
+                s += "|| " + (char)VA[i].getDato() + " ||";
+                do
+                {
+                     s += " -> " + "[ " + (char)p.getDato() + " ]";
+                     p = p.getLiga();
+                }while(p!=null);
+            }else
+            {
+                 s += "|| " +(char)MA[i][0]+ " ||"; 
             }
+           
+            
             
             s += "\n";
         }
@@ -336,16 +345,30 @@ private void MostrarDM(int origen, int[] distancias, int[] indices) {
     }
 
     // Imprimir el recorrido completo
-    resultado.append("\nRecorrido completo: ");
-    resultado.append((char) VA[origen + 1].getDato());
-    for (int vertex : verticesRecorridos) {
-        resultado.append(" -> ").append((char) VA[vertex].getDato());
-    }
-    resultado.append(" -> ").append((char) VA[origen + 1].getDato());
-
+    
+    
+    
     JOptionPane.showMessageDialog(null, resultado.toString(), "Recorrido Completo", 3);
 }
+private int[] CadenaAvector(String s, boolean b) {
+        int[] v = new int[s.length()];
+        int cont=0;
+        for (int i = 0; i < s.length(); i++)
+        {
+            cont++;
+            if(cont%3==0&&b)
+            {
+                v[i] = s.charAt(i)-'0';
+            }else
+            {
+                v[i] = s.charAt(i);
+            }
+            
+        }
 
+        return v;
+    }
+    
 
 private List<Character> Camino(int[] indices, int Destino) {
     List<Character> camino = new ArrayList<>();
