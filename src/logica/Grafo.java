@@ -347,13 +347,13 @@ private void MostrarDM(int origen, int[] distancias, int[] indices) {
 }
 
 
-private List<Character> Camino(int[] padres, int Destino) {
+private List<Character> Camino(int[] indices, int Destino) {
     List<Character> camino = new ArrayList<>();
     int Actual = Destino;
 
     while (Actual != -1) {
         camino.add(0, (char) VA[Actual].getDato());
-        Actual = padres[Actual];
+        Actual = indices[Actual];
     }
 
     return camino;
