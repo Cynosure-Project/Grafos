@@ -66,10 +66,11 @@ public class Vista {
     
     public void VistaDM()
     {
-        int O = Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
-        int D =Validar.ValidarInt("Ingresa el vértice desde donde quieres iniciar el recorrido");
-        //String s=G.DistanciaMinima(O, D);
-        //JOptionPane.showMessageDialog(null,   s, "Distancia", 3);
+        char letra =(char) Validar.ValidarChar("Ingresa el vértice desde donde quieres iniciar el recorrido");
+       int dato = G.IndiceVertice((int)letra, ve);
+       
+       G.DistanciaMinima(dato);
+
     }
     
     

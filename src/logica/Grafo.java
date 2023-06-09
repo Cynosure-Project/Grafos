@@ -273,5 +273,108 @@ public void MostrarMatriz(int[][] M, boolean b) {
    }
    JOptionPane.showMessageDialog(null,s,"BFS",3);
   }
- 
+  
+  public void DistanciaMinima(int origen) {
+    int[] distancias = new int[VA.length];
+    int[] indices = new int[VA.length];
+    boolean[] visitado = new boolean[VA.length];
+
+    // Inicializar las distancias y padres con valores predeterminados
+    for (int i = 0; i < VA.length; i++) {
+        distancias[i] = Integer.MAX_VALUE;
+        indices[i] = -1;
+    }
+
+    // La distancia al nodo de origen es 0
+    distancias[origen+1] = 0;
+
+    // Encontrar la distancia mínima
+    for (int i = 0; i < VA.length - 1; i++) {
+        int Actual = IndiceDM(distancias, visitado);
+        visitado[Actual] = true;
+
+        for (int j = 1; j < VA.length; j++) {
+            if (!visitado[j] && MA[Actual][j] != 0 && distancias[Actual] != Integer.MAX_VALUE
+                    && distancias[Actual] + MA[Actual][j] < distancias[j]) {
+                distancias[j] = distancias[Actual] + MA[Actual][j];
+                indices[j] = Actual;
+            }
+        }
+    }
+
+    // Imprimir el recorrido completo
+    MostrarDM(origen, distancias, indices);
+}
+
+private void MostrarDM(int origen, int[] distancias, int[] indices) {
+    StringBuilder resultado = new StringBuilder();
+    List<Integer> verticesRecorridos = new ArrayList<>();
+
+    for (int i = 1; i < VA.length; i++) {
+        if (distancias[i] != Integer.MAX_VALUE) {
+            resultado.append("Recorrido desde ")
+                    .append((char) VA[origen + 1].getDato())
+                    .append(" hasta ")
+                    .append((char) VA[i].getDato())
+                    .append(": ");
+
+            List<Character> camino = Camino(indices, i);
+            resultado.append(camino);
+
+            resultado.append(", Distancia: ")
+                    .append(distancias[i])
+                    .append("\n");
+
+            verticesRecorridos.add(i);
+        } else {
+            resultado.append("No hay camino desde ")
+                    .append((char) VA[origen + 1].getDato())
+                    .append(" hasta ")
+                    .append((char) VA[i].getDato())
+                    .append("\n");
+        }
+    }
+
+    // Imprimir el recorrido completo
+    resultado.append("\nRecorrido completo: ");
+    resultado.append((char) VA[origen + 1].getDato());
+    for (int vertex : verticesRecorridos) {
+        resultado.append(" -> ").append((char) VA[vertex].getDato());
+    }
+    resultado.append(" -> ").append((char) VA[origen + 1].getDato());
+
+    JOptionPane.showMessageDialog(null, resultado.toString(), "Recorrido Completo", 3);
+}
+
+
+private List<Character> Camino(int[] padres, int Destino) {
+    List<Character> camino = new ArrayList<>();
+    int Actual = Destino;
+
+    while (Actual != -1) {
+        camino.add(0, (char) VA[Actual].getDato());
+        Actual = padres[Actual];
+    }
+
+    return camino;
+}
+
+
+
+private int IndiceDM(int[] distancias, boolean[] visitado) {
+    int minimaDistancia = Integer.MAX_VALUE;
+    int nodoMinimo = -1;
+
+    for (int i = 1; i < VA.length; i++) {
+        if (!visitado[i] && distancias[i] < minimaDistancia) {
+            minimaDistancia = distancias[i];
+            nodoMinimo = i;
+        }
+    }
+
+    return nodoMinimo;
+}
+
+
+
 }
