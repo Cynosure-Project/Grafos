@@ -31,8 +31,9 @@ public class Validar {
         while (s.equals("")) {
             s = (JOptionPane.showInputDialog(t)).toUpperCase();   
             
-            if (!s.matches("^[A-Za-z,(){} ]+$"))  {
+            if (!s.matches("^[A-Za-z1-9,(){} ]+$"))  {
                 s = "";
+                
                 JOptionPane.showMessageDialog(null, "Por favor, ingresa un dato válido", "Validar", 0);
             }
         }

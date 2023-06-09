@@ -90,10 +90,8 @@ public class Grafo {
         int i, j;
         String s = ""; 
 
-        for (i = 0; i < M.length; i++)
-        {
-            for (j = 0; j < M[0].length; j++)
-            {
+        for (i = 0; i < M.length; i++) {
+            for (j = 0; j < M[0].length; j++) {
                 if (j == 0 || (b && i == 0)) 
                 {
                     char letra = (char) M[i][j];
@@ -202,17 +200,17 @@ public class Grafo {
         String s = "";
         
         for(int i=1; i<VA.length; i++) {
-            Nodo p = VA[i].getLiga();
             
-            if(p != null) {
-                s += "|| " + VA[i].getDato() + " ||";
+            if(VA[i] != null) {
+                Nodo p = VA[i].getLiga();
+                s += "|| " + (char)VA[i].getDato() + " ||";
             
                 do {
-                    s += " -> " + "[ " + p.getDato() + " ]";
+                    s += " -> " + "[ " + (char)p.getDato() + " ]";
                     p = p.getLiga();
                 } while(p != null);
             } else
-                s += "|| " + " ||"; 
+                s += "|| " + (char)MA[i][0] + " ||";
             
             s += "\n";
         }
@@ -288,6 +286,86 @@ public class Grafo {
         JOptionPane.showMessageDialog(null,s,"BFS",3);
     }
     
+    /*public String DistanciaMinima() {
+        int n = MA.length-1;
+        int D[][] = new int[MA.length-1][MA[0].length-1];
+        
+        for(int i=1; i<MA.length; i++) {
+            for (int j=1; j<MA[0].length; j++) {
+                D[i][j] = MA[i][j];
+            }
+        }
+
+        String enlaces[][] = new String [n][n];
+        String[][] aux_enlaces = new String[MA.length-1][MA.length-1];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                enlaces[i][j] = "";
+                aux_enlaces[i][j] = "";
+            }
+        }
+        
+        String enl_rec = "";
+        
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    int aux = D[i][j];
+                    int aux2 = D[i][k];
+                    int aux3 = D[k][j];
+                    int aux4 = aux2+aux3;
+                    int res = Math.min(aux,aux4);
+
+                    if(aux != aux4) {
+                        if(res == aux4) {
+                            enl_rec = "";
+                            aux_enlaces[i][j] = k + "";
+                            enlaces[i][j] = enlaces(i,k,aux_enlaces,enl_rec) + (k+1);
+                        }
+                    }
+
+                    D[i][j]= res;
+                }
+            }
+        }
+
+        String cadena = "";
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                cadena += D[i][j] + " ";
+            }
+           
+            cadena += "\n";
+        }
+
+        String enlacesres = "";
+        
+        for (int i = 0; i <n; i++) {
+            for (int j = 0; j < n; j++) {
+                if(i != j) {
+                    if(enlaces[i][j].equals("") == true) {
+                        enlacesres += " De ( " + (i+1) + " a " + (j+1) + " ) = " + "( " + (i+1) + " , " + (j+1) + " )" + "\n";
+                    } else
+                        enlacesres += " De ( " + (i+1) + " a " + (j+1) + " ) = ( " + (i+1) + " , " + enlaces[i][j] + " , " + (j+1) + ")\n";
+                }
+            }
+        }
+
+        return "las distancias minimas entre nodos son: \n" + cadena + "\nlos caminos minimos entre nodosson:\n" + enlacesres;
+    }
+ 
+    public String enlaces(int i, int k, String[][] aux_enlaces, String enl_rec) {
+        if(aux_enlaces[i][k].equals("") == true) {
+            return "";
+        } else {
+            enl_rec += enlaces(i,Integer.parseInt(aux_enlaces[i][k].toString()),aux_enlaces,enl_rec) + (Integer.parseInt(aux_enlaces[i][k].toString())+1) + " , ";
+            
+            return enl_rec;
+        }
+    }*/
+    
     public int[] DistanciaMinima(int origen) {
         int numVertices = VA.length-1;
         int[] distancias = new int[numVertices];
@@ -328,6 +406,12 @@ public class Grafo {
         }
 
         return indiceMinimaDistancia;
+    }
+    
+    public int verticeIndice(int[] ve, int n) {
+        ArrayList<Integer> lista = vectorAlista(ve);
+
+        return lista.get(n);
     }
     
    

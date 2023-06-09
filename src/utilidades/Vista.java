@@ -25,7 +25,7 @@ public class Vista {
         do {
             Sl = Validar.ValidarString(""" 
                                 Ingrese las aristas del grafo y su respectivo peso (Separados mediante comas)
-                                Por ejemplo: (1,2,4) (1,3,5)
+                                Por ejemplo: (A,B,4) (A,C,5)
                                     """);
             la = cadenaAvector(Sl, true);
         } while(!Validar.ValidarTripleta(ve, la));
@@ -93,10 +93,22 @@ public class Vista {
     }
     
     public void VistaDistanciaMinima() {
-        char letra = (char)Validar.ValidarChar("Ingresa el vértice desde donde quieres iniciar el recorrido");
+        char letra = Validar.ValidarChar("Ingresa el vértice desde donde quieres iniciar el recorrido");
         int dato = G.indiceVertice((int)letra, ve);
        
-        G.DistanciaMinima(dato);
+        VistaMostrarDistanciaMinima(G.DistanciaMinima(dato), letra);
+    }
+    
+    public void VistaMostrarDistanciaMinima(int[] v, char l) {
+        String s = "";
+        
+        for (int i=0; i<v.length; i++) {
+            s += "| " + (char)G.verticeIndice(ve, i) + " |";
+        }
+        
+        JOptionPane.showMessageDialog(null, "Recorrido distancia minima de: " + l + " es: " + s);
+        
+        
     }
     
     
