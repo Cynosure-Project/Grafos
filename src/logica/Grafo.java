@@ -103,8 +103,10 @@ public void MostrarMatriz(int[][] M, boolean b) {
 
             s += "\n";
         }
-
-        JOptionPane.showMessageDialog(null, s, "Matriz", 3); 
+        if(b)      
+        JOptionPane.showMessageDialog(null, s, "Matriz Adyacencia", 3);
+        else
+          JOptionPane.showMessageDialog(null, s, "Matriz Incidencia", 3);  
     }
 
     
@@ -197,7 +199,7 @@ public void MostrarMatriz(int[][] M, boolean b) {
             s += "\n";
         }
         
-        JOptionPane.showMessageDialog(null, s);
+        JOptionPane.showMessageDialog(null, s,"Lista de adyacencia",3);
     }
     
  
